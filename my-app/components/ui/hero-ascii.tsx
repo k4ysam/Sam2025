@@ -1,8 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [isAboutMeOpen, setIsAboutMeOpen] = useState(false);
+
   useEffect(() => {
     const embedScript = document.createElement('script');
     embedScript.type = 'text/javascript';
@@ -97,6 +100,34 @@ export default function Home() {
       {/* Mobile stars background */}
       <div className="absolute inset-0 w-full h-full lg:hidden stars-bg"></div>
 
+      {/* Dither effect above header */}
+      {/* <div className="absolute top-0 left-0 right-0 h-2 lg:h-3 dither-pattern opacity-30 z-20"></div> */}
+
+      {/* Top Header */}
+      <div className="absolute left-0 right-0 z-20 border-b border-white/20 top-2 lg:top-3">
+        <div className="container mx-auto px-4 lg:px-8 py-3 lg:py-4">
+        </div>
+      </div>
+
+      {/* Name and Info Section - Right under header */}
+      <div className="absolute top-0 left-0 right-0 z-20 pt-16 lg:pt-20">
+        <div className="pl-10 lg:pl-18 pt-2">
+          <div className="mb-4 lg:mb-5">
+            <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-4 mb-2">
+              <div className="font-mono text-white text-lg lg:text-2xl font-bold tracking-widest italic transform -skew-x-12">
+                Samaksh Khandelwal
+              </div>
+              <div className="hidden lg:block h-3 w-px bg-white/40"></div>
+              <span className="text-white/60 text-[10px] lg:text-[12px] font-mono">Creative Developer</span>
+            </div>
+            <div className="flex items-center gap-3 text-[10px] lg:text-[12px] font-mono text-white/60">
+              <span>McGill University</span>
+              <div className="w-1 h-1 bg-white/40 rounded-full"></div>
+              <span>Montreal, Canada</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Corner Frame Accents */}
       <div className="absolute top-0 left-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20"></div>
@@ -114,23 +145,6 @@ export default function Home() {
               <div className="flex-1 h-px bg-white"></div>
             </div>
 
-              {/* Name and Info */}
-              <div className="mb-4 lg:mb-5">
-              <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-4 mb-2">
-                <div className="font-mono text-white text-lg lg:text-xl font-bold tracking-widest italic transform -skew-x-12">
-                  Samaksh Khandelwal
-                </div>
-                <div className="hidden lg:block h-3 w-px bg-white/40"></div>
-                <span className="text-white/60 text-[10px] lg:text-[12px] font-mono">Creative Developer</span>
-              </div>
-              <div className="flex items-center gap-3 text-[10px] lg:text-[12px] font-mono text-white/60">
-                <span>McGill University</span>
-                <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-                <span>Montreal, Canada</span>
-              </div>
-            </div>
-
-            {/* Title with dithered accent */}
             {/* Title with dithered accent */}
             <div className="relative">
               <div className="hidden lg:block absolute -left-3 top-0 bottom-0 w-1 dither-pattern opacity-40"></div>
@@ -163,10 +177,13 @@ export default function Home() {
 
             {/* Buttons with technical accents */}
             <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
-              <button className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group">
+              <button 
+                onClick={() => setIsAboutMeOpen(true)}
+                className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group"
+              >
                 <span className="hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
                 <span className="hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                GET STARTED
+                ABOUT ME
               </button>
               
               <button className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent border border-white text-white font-mono text-xs lg:text-sm hover:bg-white hover:text-black transition-all duration-200" style={{ borderWidth: '1px' }}>
@@ -210,7 +227,92 @@ export default function Home() {
         </div>
       </div>
 
+      {/* About Me Popup */}
+      {isAboutMeOpen && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-300"
+            onClick={() => setIsAboutMeOpen(false)}
+            style={{
+              animation: 'fadeIn 0.3s ease-out'
+            }}
+          />
+          
+          {/* Popup Container */}
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
+            style={{
+              animation: 'fadeIn 0.3s ease-out'
+            }}
+          >
+            <div 
+              className="relative bg-black border border-white/30 w-full h-[60vh] max-w-4xl mx-4 pointer-events-auto overflow-hidden"
+              style={{
+                animation: 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Corner accents */}
+              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-white/40"></div>
+              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-white/40"></div>
+              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-white/40"></div>
+              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-white/40"></div>
+
+              {/* Header */}
+              <div className="border-b border-white/20 px-6 py-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 bg-white/60"></div>
+                  <h2 className="text-white font-mono text-sm lg:text-base tracking-wider">ABOUT ME</h2>
+                  <div className="flex-1 h-px bg-white/20"></div>
+                </div>
+                <button
+                  onClick={() => setIsAboutMeOpen(false)}
+                  className="text-white/60 hover:text-white transition-colors font-mono text-lg leading-none"
+                  aria-label="Close"
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* Content Area - Ready for React components */}
+              <div className="h-[calc(60vh-73px)] overflow-y-auto px-6 py-6">
+                <div className="text-white/80 font-mono text-xs lg:text-sm">
+                  {/* Placeholder - User will add React components here */}
+                  <div className="opacity-50 text-center py-20">
+                    Content area ready for React components
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom accent line */}
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10"></div>
+            </div>
+          </div>
+        </>
+      )}
+
       <style jsx>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
         .dither-pattern {
           background-image: 
             repeating-linear-gradient(0deg, transparent 0px, transparent 1px, white 1px, white 2px),
