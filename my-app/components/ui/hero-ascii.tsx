@@ -144,6 +144,80 @@ export default function Home() {
               While I don't claim to be a frog, I identify as an owl because my sleep schedule is pretty messed up zzz.
             </p>
           </div>
+
+          {/* Volunteer Section */}
+          <div className="mt-6 lg:mt-8 max-w-[90vw] lg:max-w-md pr-4 lg:pr-0">
+            {/* Section Title */}
+            <div className="mb-3 opacity-60">
+              <h3 className="text-white font-mono text-[10px] lg:text-xs tracking-wider">VOLUNTEER & LEADERSHIP</h3>
+              <div className="w-16 h-px bg-white/30 mt-1"></div>
+            </div>
+
+            {/* Volunteer Items */}
+            <div className="space-y-2">
+              {/* Hack4Impact */}
+              <div>
+                <h4 className="text-white/80 font-mono text-[10px] lg:text-xs font-semibold">
+                  <a 
+                    href="https://mcgill.hack4impact.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block hover:underline hover:scale-105 transition-transform duration-200 cursor-pointer"
+                  >
+                    Hack4Impact McGill
+                  </a>
+                  <span> – Director of Public Relations and Sponsorships</span>
+                </h4>
+              </div>
+
+              {/* McGill Ventures */}
+              <div>
+                <h4 className="text-white/80 font-mono text-[10px] lg:text-xs font-semibold">
+                  <a 
+                    href="https://mcgillvc.ca/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block hover:underline hover:scale-105 transition-transform duration-200 cursor-pointer"
+                  >
+                    McGill Ventures
+                  </a>
+                  <span> – Corporate Relations Executive</span>
+                </h4>
+              </div>
+
+              {/* PUMP */}
+              <div>
+                <h4 className="text-white/80 font-mono text-[10px] lg:text-xs font-semibold">
+                  <a 
+                    href="https://www.pumprofessionals.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block hover:underline hover:scale-105 transition-transform duration-200 cursor-pointer"
+                  >
+                    PuMP
+                  </a>
+                  <span> - International Student Representative</span>
+                </h4>
+              </div>
+              
+              {/* McGill AI Society */}
+              <div>
+                <h4 className="text-white/80 font-mono text-[10px] lg:text-xs font-semibold">
+                  <a 
+                    href="https://mcgillai.com/mais202" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block hover:underline hover:scale-105 transition-transform duration-200 cursor-pointer"
+                  >
+                    McGill AI Society
+                  </a>
+                  <span> – Accelerated Machine Learning BootCamp</span>
+                </h4>
+              </div>
+
+              
+            </div>
+          </div>
         </div>
       </div>
 
@@ -276,6 +350,30 @@ export default function Home() {
                 <p className="text-gray-400 font-mono text-[10px] leading-snug">
                   Deployed parallelized searches on HPC clusters executing 10⁶+ configurations to identify optimal Magic Square reduction pathways. Optimized AI hospital simulation with VisualVM profiling.
                 </p>
+              </div>
+
+
+              {/* Job 4 */}
+              <div className="relative border border-white/20 p-3 bg-black/40">
+                {/* Corner accents */}
+                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40"></div>
+                
+                <div className="flex items-start justify-between mb-2">
+                  <div className="w-2 h-2 bg-white/60 mt-1"></div>
+                  <div className="flex-1 ml-3">
+                    <h3 className="text-white font-mono text-sm font-bold">Undergraduate Tutor</h3>
+                    <p className="text-white/60 font-mono text-xs">McGill University</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 mb-2 opacity-40">
+                  <div className="flex-1 h-px bg-white"></div>
+                  <span className="text-white text-[9px] font-mono">2024 - Present</span>
+                </div>
+                
+                <p className="text-gray-400 font-mono text-[10px] leading-snug">
+                Led tutoring sessions in Introduction to Computer Science, guiding students through fundamental programming concepts, algorithms, and data structures along with Calculus 1 ,2 and 3.                </p>
               </div>
             </div>
           </div>
