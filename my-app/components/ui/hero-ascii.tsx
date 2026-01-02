@@ -218,18 +218,9 @@ export default function Home() {
               
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Content Section - Buttons centered in the middle */}
-      <div className="relative z-10 flex min-h-screen items-center justify-between pt-16 lg:pt-0" style={{ marginTop: '5vh' }}>
-        {/* Left side - Empty spacer for layout balance */}
-        <div className="hidden lg:block max-w-lg flex-1"></div>
-
-        {/* Center - Buttons */}
-        <div className="flex-1 flex flex-col items-center justify-center px-4 lg:px-0">
-          {/* Buttons with technical accents */}
-          <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
+          {/* Buttons Section */}
+          <div className="mt-8 lg:mt-10 flex flex-col lg:flex-row gap-3 lg:gap-4">
             <button 
               onClick={() => setIsAboutMeOpen(true)}
               className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group"
@@ -241,14 +232,18 @@ export default function Home() {
             
             <button 
               onClick={() => setIsProjectsOpen(true)}
-              className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent border border-white text-white font-mono text-xs lg:text-sm hover:bg-white hover:text-black transition-all duration-200" 
-              style={{ borderWidth: '1px' }}
+              className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group"
             >
+              <span className="hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
+              <span className="hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
               MY PROJECTS
             </button>
           </div>
         </div>
+      </div>
 
+      {/* Content Section - Experience on the right */}
+      <div className="relative z-10 flex min-h-screen items-center justify-end pt-16 lg:pt-0" style={{ marginTop: '5vh' }}>
         {/* Right side - Job Experience Section */}
         <div className="hidden lg:block max-w-md relative pr-18">
           {/* Top decorative line */}
@@ -498,7 +493,7 @@ export default function Home() {
             }}
           >
             <div 
-              className="relative bg-black border border-white/30 w-full h-[60vh] max-w-4xl mx-4 pointer-events-auto overflow-hidden"
+              className="relative bg-black border border-white/30 w-full h-[60vh] max-w-2xl mx-4 pointer-events-auto overflow-hidden"
               style={{
                 animation: 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
