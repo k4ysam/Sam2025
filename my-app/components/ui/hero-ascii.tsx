@@ -134,52 +134,26 @@ export default function Home() {
               <span>Montréal, Canada</span>
             </div>
           </div>
+          
+          {/* About Me Section */}
+          <div className="mt-4 lg:mt-6 max-w-[90vw] lg:max-w-md pr-4 lg:pr-0">
+            <p className="text-xs lg:text-sm text-white/70 font-mono leading-relaxed mb-2">
+              Currently a 4th year student at McGill University studying Computer Science with minors in Economics and Statistics.
+            </p>
+            <p className="text-xs lg:text-sm text-white/70 font-mono leading-relaxed">
+              While I don't claim to be a frog, I identify as an owl because my sleep schedule is pretty messed up zzz.
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Content Section - Moved from inside name/info section */}
+      {/* Content Section - Buttons centered in the middle */}
       <div className="relative z-10 flex min-h-screen items-center justify-between pt-16 lg:pt-0" style={{ marginTop: '5vh' }}>
-        {/* Left side - Original content */}
-        <div className="max-w-lg relative pl-10 lg:pl-18">
-          {/* Top decorative line */}
-          <div className="flex items-center gap-2 mb-3 opacity-60">
-            <div className="w-8 h-px bg-white"></div>
-            <span className="text-white text-[10px] font-mono tracking-wider">001</span>
-            <div className="flex-1 h-px bg-white"></div>
-          </div>
+        {/* Left side - Empty spacer for layout balance */}
+        <div className="hidden lg:block max-w-lg flex-1"></div>
 
-          {/* Title with dithered accent
-          <div className="relative">
-            <div className="hidden lg:block absolute -left-3 top-0 bottom-0 w-1 dither-pattern opacity-40"></div>
-            <h1 className="text-2xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 leading-tight font-mono tracking-wider" style={{ letterSpacing: '0.1em' }}>
-              CS with Economics and Statistics
-              <span className="block text-white mt-1 lg:mt-2 opacity-90">
-                @McGill University
-              </span>
-            </h1>
-          </div> */}
-
-          
-
-          {/* Decorative dots pattern - desktop only */}
-          <div className="hidden lg:flex gap-1 mb-3 opacity-40">
-            {Array.from({ length: 40 }).map((_, i) => (
-              <div key={i} className="w-0.5 h-0.5 bg-white rounded-full"></div>
-            ))}
-          </div>
-
-          {/* Description with subtle grid pattern */}
-          <div className="relative">
-            <p className="text-xs lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-80">
-              {/* Where geometry meets humanity — Da Vinci's vision of ideal form */}
-            </p>
-            
-            {/* Technical corner accent - desktop only */}
-            <div className="hidden lg:block absolute -right-4 top-1/2 w-3 h-3 border border-white opacity-30" style={{ transform: 'translateY(-50%)' }}>
-              <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white" style={{ transform: 'translate(-50%, -50%)' }}></div>
-            </div>
-          </div>
-
+        {/* Center - Buttons */}
+        <div className="flex-1 flex flex-col items-center justify-center px-4 lg:px-0">
           {/* Buttons with technical accents */}
           <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
             <button 
@@ -198,13 +172,6 @@ export default function Home() {
             >
               MY PROJECTS
             </button>
-          </div>
-
-          {/* Bottom technical notation - desktop only */}
-          <div className="hidden lg:flex items-center gap-2 mt-6 opacity-40">
-            <span className="text-white text-[9px] font-mono">∞</span>
-            <div className="flex-1 h-px bg-white"></div>
-            <span className="text-white text-[9px] font-mono">VITRUVIAN</span>
           </div>
         </div>
 
