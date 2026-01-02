@@ -93,10 +93,10 @@ export default function Home() {
     <main className="relative min-h-screen overflow-hidden bg-black">
       {/* Vitruvian man animation - hidden on mobile */}
       <div className="absolute inset-0 w-full h-full hidden lg:block">
-        <div 
-          data-us-project="dKAfEG1XbHOSfoYKG5DH" 
+        {/* <div 
+          data-us-project="dKAfEG1XbHOSfoYKG5DH" // dKAfEG1XbHOSfoYKG5DH // Qo3EgqzXPhVu9pwiFrM3
           style={{ width: '100%', height: '100%', minHeight: '100vh' }}
-        />
+        /> */}
       </div>
 
       {/* Mobile stars background */}
@@ -129,16 +129,17 @@ export default function Home() {
               <span className="text-white/60 text-[10px] lg:text-[12px] font-mono">Creative Developer</span>
             </div>
             <div className="flex items-center gap-3 text-[10px] lg:text-[12px] font-mono text-white/60">
-              <span>McGill University</span>
+              <span>@ McGill University</span>
               <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-              <span>Montreal, Canada</span>
+              <span>Montréal, Canada</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Content Section - Moved from inside name/info section */}
-      <div className="relative z-10 flex min-h-screen items-center pt-16 lg:pt-0" style={{ marginTop: '5vh' }}>
+      <div className="relative z-10 flex min-h-screen items-center justify-between pt-16 lg:pt-0" style={{ marginTop: '5vh' }}>
+        {/* Left side - Original content */}
         <div className="max-w-lg relative pl-10 lg:pl-18">
           {/* Top decorative line */}
           <div className="flex items-center gap-2 mb-3 opacity-60">
@@ -147,16 +148,18 @@ export default function Home() {
             <div className="flex-1 h-px bg-white"></div>
           </div>
 
-          {/* Title with dithered accent */}
+          {/* Title with dithered accent
           <div className="relative">
             <div className="hidden lg:block absolute -left-3 top-0 bottom-0 w-1 dither-pattern opacity-40"></div>
             <h1 className="text-2xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 leading-tight font-mono tracking-wider" style={{ letterSpacing: '0.1em' }}>
-              Something
+              CS with Economics and Statistics
               <span className="block text-white mt-1 lg:mt-2 opacity-90">
-                Something
+                @McGill University
               </span>
             </h1>
-          </div>
+          </div> */}
+
+          
 
           {/* Decorative dots pattern - desktop only */}
           <div className="hidden lg:flex gap-1 mb-3 opacity-40">
@@ -168,7 +171,7 @@ export default function Home() {
           {/* Description with subtle grid pattern */}
           <div className="relative">
             <p className="text-xs lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-80">
-              Where geometry meets humanity — Da Vinci's vision of ideal form
+              {/* Where geometry meets humanity — Da Vinci's vision of ideal form */}
             </p>
             
             {/* Technical corner accent - desktop only */}
@@ -202,6 +205,119 @@ export default function Home() {
             <span className="text-white text-[9px] font-mono">∞</span>
             <div className="flex-1 h-px bg-white"></div>
             <span className="text-white text-[9px] font-mono">VITRUVIAN</span>
+          </div>
+        </div>
+
+        {/* Right side - Job Experience Section */}
+        <div className="hidden lg:block max-w-md relative pr-18">
+          {/* Top decorative line */}
+          <div className="flex items-center gap-2 mb-3 opacity-60">
+            <div className="flex-1 h-px bg-white"></div>
+            <span className="text-white text-[10px] font-mono tracking-wider">002</span>
+            <div className="w-8 h-px bg-white"></div>
+          </div>
+
+          {/* Decorative dots pattern */}
+          <div className="flex gap-1 mb-4 opacity-40 justify-end">
+            {Array.from({ length: 30 }).map((_, i) => (
+              <div key={i} className="w-0.5 h-0.5 bg-white rounded-full"></div>
+            ))}
+          </div>
+
+          {/* Section Title */}
+          <div className="relative mb-6">
+            <div className="absolute -right-3 top-0 bottom-0 w-1 dither-pattern opacity-40"></div>
+            <h2 className="text-xl font-bold text-white mb-2 font-mono tracking-wider text-right">
+              EXPERIENCE
+            </h2>
+            <div className="flex items-center gap-2 opacity-40 justify-end">
+              <span className="text-white text-[9px] font-mono">PROFESSIONAL</span>
+              <div className="w-12 h-px bg-white"></div>
+            </div>
+          </div>
+
+          {/* Job Experience Items - Scrollable Container */}
+          <div className="max-h-[450px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+            <div className="space-y-4">
+              {/* Job 1 */}
+              <div className="relative border border-white/20 p-3 bg-black/40">
+                {/* Corner accents */}
+                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40"></div>
+                
+                <div className="flex items-start justify-between mb-2">
+                  <div className="w-2 h-2 bg-white/60 mt-1"></div>
+                  <div className="flex-1 ml-3">
+                    <h3 className="text-white font-mono text-sm font-bold">Software Developer - AI & ML</h3>
+                    <p className="text-white/60 font-mono text-xs">KIA HYUNDAI - South Korea</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 mb-2 opacity-40">
+                  <div className="flex-1 h-px bg-white"></div>
+                  <span className="text-white text-[9px] font-mono">May 2025 - August 2025</span>
+                </div>
+                
+                <p className="text-gray-400 font-mono text-[10px] leading-snug">
+                  Architected modular GenAI toolkit accelerating vehicle prototyping by 60%. Migrated GCP to AWS, achieving 5-10× throughput with 50% cost reduction on L4 GPU clusters.
+                </p>
+              </div>
+
+              {/* Job 2 */}
+              <div className="relative border border-white/20 p-3 bg-black/40">
+                {/* Corner accents */}
+                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40"></div>
+                
+                <div className="flex items-start justify-between mb-2">
+                  <div className="w-2 h-2 bg-white/60 mt-1"></div>
+                  <div className="flex-1 ml-3">
+                    <h3 className="text-white font-mono text-sm font-bold">Machine Learning Intern</h3>
+                    <p className="text-white/60 font-mono text-xs">Depix Technologies - Montréal, Canada</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 mb-2 opacity-40">
+                  <div className="flex-1 h-px bg-white"></div>
+                  <span className="text-white text-[9px] font-mono">December 2024 - Present</span>
+                </div>
+                
+                <p className="text-gray-400 font-mono text-[10px] leading-snug">
+                  Built C++ GenAI plugin for Unreal Engine, reducing iteration time by 60% for 1000+ designers. Delivered AI add-in for Autodesk Fusion 360, accelerating visualization by 30%.
+                </p>
+              </div>
+
+              {/* Job 3 */}
+              <div className="relative border border-white/20 p-3 bg-black/40">
+                {/* Corner accents */}
+                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40"></div>
+                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40"></div>
+                
+                <div className="flex items-start justify-between mb-2">
+                  <div className="w-2 h-2 bg-white/60 mt-1"></div>
+                  <div className="flex-1 ml-3">
+                    <h3 className="text-white font-mono text-sm font-bold">Summer Research Intern</h3>
+                    <p className="text-white/60 font-mono text-xs">McGill University</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-2 mb-2 opacity-40">
+                  <div className="flex-1 h-px bg-white"></div>
+                  <span className="text-white text-[9px] font-mono">2024 - 2025</span>
+                </div>
+                
+                <p className="text-gray-400 font-mono text-[10px] leading-snug">
+                  Deployed parallelized searches on HPC clusters executing 10⁶+ configurations to identify optimal Magic Square reduction pathways. Optimized AI hospital simulation with VisualVM profiling.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom technical notation */}
+          <div className="flex items-center gap-2 mt-6 opacity-40 justify-end">
+            <span className="text-white text-[9px] font-mono">TIMELINE</span>
+            <div className="flex-1 h-px bg-white"></div>
+            <span className="text-white text-[9px] font-mono">✦</span>
           </div>
         </div>
       </div>
@@ -398,6 +514,30 @@ export default function Home() {
           background-size: 200% 200%, 180% 180%, 250% 250%, 220% 220%, 190% 190%, 240% 240%, 210% 210%, 230% 230%;
           background-position: 0% 0%, 40% 40%, 60% 60%, 20% 20%, 80% 80%, 30% 30%, 70% 70%, 50% 50%;
           opacity: 0.3;
+        }
+
+        /* Custom scrollbar styling */
+        .scrollbar-thin::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 2px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Firefox scrollbar */
+        .scrollbar-thin {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
         }
       `}</style>
     </main>
