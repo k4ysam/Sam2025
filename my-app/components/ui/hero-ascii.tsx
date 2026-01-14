@@ -169,35 +169,41 @@ export default function Home() {
           <Carousel.Root
             defaultPage={0}
             slideCount={4}
-            orientation="vertical"
-            className="max-h-96 w-80 mx-auto"
+            className="w-80 mx-auto"
           >
-            <div className="flex gap-1.5">
-              <Carousel.Control className="flex flex-col justify-center gap-1">
-                <Carousel.PrevTrigger className="px-2 py-2 hover:opacity-70 transition-opacity text-white font-mono">
-                  ↑
-                </Carousel.PrevTrigger>
-                <Carousel.NextTrigger className="px-2 py-2 hover:opacity-70 transition-opacity text-white font-mono">
-                  ↓
-                </Carousel.NextTrigger>
-              </Carousel.Control>
-              <Carousel.ItemGroup className="overflow-hidden rounded-lg h-80 flex-1 border border-white/20">
-                {Array.from({ length: 4 }, (_, i) => (
-                  <Carousel.Item key={i} index={i}>
-                    <img
-                      src={`https://picsum.photos/seed/${i + 20}/300/400`}
-                      alt={`Slide ${i + 1}`}
-                      className="w-full h-80 object-cover"
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel.ItemGroup>
-              <Carousel.IndicatorGroup className="flex flex-col justify-center items-center gap-0.5">
+            <div className="flex flex-col gap-3">
+              {/* Display image with arrows on sides */}
+              <div className="flex items-center gap-2">
+                <Carousel.Control className="flex items-center gap-2">
+                  <Carousel.PrevTrigger className="px-2 py-2 hover:opacity-70 transition-opacity text-white font-mono">
+                    ←
+                  </Carousel.PrevTrigger>
+                </Carousel.Control>
+                <Carousel.ItemGroup className="overflow-hidden rounded-lg h-80 flex-1 border border-white/20">
+                  {Array.from({ length: 4 }, (_, i) => (
+                    <Carousel.Item key={i} index={i}>
+                      <img
+                        src={`https://picsum.photos/seed/${i + 20}/300/400`}
+                        alt={`Slide ${i + 1}`}
+                        className="w-full h-80 object-cover"
+                      />
+                    </Carousel.Item>
+                  ))}
+                </Carousel.ItemGroup>
+                <Carousel.Control className="flex items-center gap-2">
+                  <Carousel.NextTrigger className="px-2 py-2 hover:opacity-70 transition-opacity text-white font-mono">
+                    →
+                  </Carousel.NextTrigger>
+                </Carousel.Control>
+              </div>
+              
+              {/* Thumbnails at bottom */}
+              <Carousel.IndicatorGroup className="flex justify-center items-center gap-1">
                 {Array.from({ length: 4 }, (_, i) => (
                   <Carousel.Indicator
                     key={i}
                     index={i}
-                    className="w-4 h-6 rounded overflow-hidden opacity-50 data-[current]:opacity-100 data-[current]:ring-1 data-[current]:ring-white transition-all cursor-pointer hover:opacity-75"
+                    className="w-6 h-8 rounded overflow-hidden opacity-50 data-[current]:opacity-100 data-[current]:ring-1 data-[current]:ring-white transition-all cursor-pointer hover:opacity-75"
                   >
                     <img
                       src={`https://picsum.photos/seed/${i + 20}/300/400`}
