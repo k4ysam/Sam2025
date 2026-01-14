@@ -8,7 +8,17 @@ import { Carousel } from "@ark-ui/react/carousel";
 export default function Home() {
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+
+  // Project list - matching tab names in AnimatedTabs
+  const projects = [
+    'Stealth',
+    'PromptDuels',
+    'Lecture Summariser',
+    'McGill Food Tracker',
+    'Stock Price Predictor'
+  ];
 
   // Course data for each subject
   const courseData: Record<string, string[]> = {
@@ -205,6 +215,42 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Project List - Center Top - Toggleable */}
+      <div 
+        className="absolute top-20 lg:top-24 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
+        style={{ width: '280px', maxWidth: '85vw' }}
+      >
+        <div
+          className={`transition-all duration-500 ease-in-out space-y-2 ${
+            isProjectsOpen 
+              ? 'opacity-100 translate-x-0' 
+              : 'opacity-0 translate-x-full pointer-events-none'
+          }`}
+        >
+          {/* Project List */}
+          {projects.map((project, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setSelectedProject(project);
+                setIsProjectsOpen(false);
+              }}
+              className="w-full text-left px-4 py-3 bg-black/60 hover:bg-white/10 border border-white/30 hover:border-white/60 transition-all duration-200 group backdrop-blur-sm"
+              style={{
+                animation: `fadeInStagger 0.3s ease-out ${index * 0.05}s both`
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-1 h-1 bg-white/60 group-hover:bg-white transition-colors"></div>
+                <span className="text-white/80 group-hover:text-white font-mono text-sm transition-colors">
+                  {project}
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Corner Frame Accents */}
       <div className="absolute top-0 left-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20"></div>
       <div className="absolute top-0 right-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-r-2 border-white/30 z-20"></div>
@@ -337,7 +383,14 @@ export default function Home() {
           {/* Buttons Section */}
           <div className="mt-8 lg:mt-10 flex flex-col lg:flex-row gap-3 lg:gap-4">
             <button 
-              onClick={() => setIsAboutMeOpen(!isAboutMeOpen)}
+              onClick={() => {
+                if (isProjectsOpen) {
+                  setIsProjectsOpen(false);
+                  setTimeout(() => setIsAboutMeOpen(!isAboutMeOpen), 250);
+                } else {
+                  setIsAboutMeOpen(!isAboutMeOpen);
+                }
+              }}
               className={`relative px-5 lg:px-6 py-2 lg:py-2.5 font-mono text-xs lg:text-sm border transition-all duration-300 group ${
                 isAboutMeOpen
                   ? 'bg-white text-black border-white shadow-lg shadow-white/50'
@@ -357,12 +410,30 @@ export default function Home() {
             </button>
             
             <button 
-              onClick={() => setIsProjectsOpen(true)}
-              className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group"
+              onClick={() => {
+                if (isAboutMeOpen) {
+                  setIsAboutMeOpen(false);
+                  setTimeout(() => setIsProjectsOpen(!isProjectsOpen), 250);
+                } else {
+                  setIsProjectsOpen(!isProjectsOpen);
+                }
+              }}
+              className={`relative px-5 lg:px-6 py-2 lg:py-2.5 font-mono text-xs lg:text-sm border transition-all duration-300 group ${
+                isProjectsOpen
+                  ? 'bg-white text-black border-white shadow-lg shadow-white/50'
+                  : 'bg-transparent text-white border-white hover:bg-white hover:text-black'
+              }`}
             >
-              <span className="hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
-              <span className="hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
-              MY PROJECTS
+              <span className={`hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white transition-opacity ${
+                isProjectsOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}></span>
+              <span className={`hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white transition-opacity ${
+                isProjectsOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}></span>
+              {isProjectsOpen && (
+                <span className="absolute inset-0 animate-pulse bg-white/20"></span>
+              )}
+              MY PROJECTS {isProjectsOpen ? '✓' : ''}
             </button>
           </div>
         </div>
@@ -499,13 +570,14 @@ export default function Home() {
       </div>
 
 
-      {/* My Projects Popup */}
-      {isProjectsOpen && (
+
+      {/* Project Details Popup */}
+      {selectedProject && (
         <>
           {/* Backdrop */}
           <div 
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-300"
-            onClick={() => setIsProjectsOpen(false)}
+            onClick={() => setSelectedProject(null)}
             style={{
               animation: 'fadeIn 0.3s ease-out'
             }}
@@ -513,47 +585,31 @@ export default function Home() {
           
           {/* Popup Container */}
           <div 
-            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
+            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none p-4"
             style={{
               animation: 'fadeIn 0.3s ease-out'
             }}
           >
             <div 
-              className="relative bg-black border border-white/30 w-full h-[60vh] max-w-2xl mx-4 pointer-events-auto overflow-hidden"
+              className="relative flex flex-col items-center pointer-events-auto"
               style={{
                 animation: 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-white/40"></div>
-              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-white/40"></div>
-              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-white/40"></div>
-              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-white/40"></div>
-
-              {/* Header */}
-              <div className="border-b border-white/20 px-6 py-4 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white/60"></div>
-                  <h2 className="text-white font-mono text-sm lg:text-base tracking-wider">MY PROJECTS</h2>
-                  <div className="flex-1 h-px bg-white/20"></div>
-                </div>
-                <button
-                  onClick={() => setIsProjectsOpen(false)}
-                  className="text-white/60 hover:text-white transition-colors font-mono text-lg leading-none"
-                  aria-label="Close"
-                >
-                  ×
-                </button>
-              </div>
-
-              {/* Content Area with AnimatedTabs */}
-              <div className="h-[calc(60vh-73px)] overflow-y-auto px-6 py-6 flex items-center justify-center">
+              {/* AnimatedTabs */}
+              <div className="w-full max-w-4xl">
                 <AnimatedTabs />
               </div>
 
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10"></div>
+              {/* Close button below */}
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="mt-4 text-white/60 hover:text-white transition-colors font-mono text-2xl leading-none w-10 h-10 flex items-center justify-center border border-white/30 hover:border-white/60 bg-black/60 backdrop-blur-sm hover:bg-white/10"
+                aria-label="Close"
+              >
+                ×
+              </button>
             </div>
           </div>
         </>
