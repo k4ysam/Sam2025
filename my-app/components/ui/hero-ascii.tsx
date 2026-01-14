@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import { AnimatedTabs } from "@/components/ui/animated-tabs";
+import { Carousel } from "@ark-ui/react/carousel";
 
 export default function Home() {
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false);
@@ -152,6 +153,58 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Vertical Carousel - Center Top - Toggleable */}
+      <div 
+        className="absolute top-20 lg:top-24 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
+        style={{ width: '320px' }}
+      >
+        <div
+          className={`transition-all duration-500 ease-in-out ${
+            isAboutMeOpen 
+              ? 'opacity-100 translate-x-0' 
+              : 'opacity-0 -translate-x-full pointer-events-none'
+          }`}
+        >
+          <Carousel.Root
+            defaultPage={0}
+            slideCount={4}
+            orientation="vertical"
+            className="max-h-96 w-80 mx-auto"
+          >
+            <div className="flex gap-4">
+              <Carousel.Control className="flex flex-col justify-center gap-2">
+                <Carousel.PrevTrigger className="px-2 py-3 bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-lg transition-all duration-200 text-white font-mono">
+                  ↑
+                </Carousel.PrevTrigger>
+                <Carousel.NextTrigger className="px-2 py-3 bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-lg transition-all duration-200 text-white font-mono">
+                  ↓
+                </Carousel.NextTrigger>
+              </Carousel.Control>
+              <Carousel.ItemGroup className="overflow-hidden rounded-lg h-80 flex-1 border border-white/20">
+                {Array.from({ length: 4 }, (_, i) => (
+                  <Carousel.Item key={i} index={i}>
+                    <img
+                      src={`https://picsum.photos/seed/${i + 20}/300/400`}
+                      alt={`Slide ${i + 1}`}
+                      className="w-full h-80 object-cover"
+                    />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.IndicatorGroup className="flex flex-col justify-center items-center gap-2">
+                {Array.from({ length: 4 }, (_, i) => (
+                  <Carousel.Indicator
+                    key={i}
+                    index={i}
+                    className="w-2 h-8 rounded-full bg-white/30 data-[current]:bg-white transition-colors cursor-pointer hover:bg-white/50"
+                  />
+                ))}
+              </Carousel.IndicatorGroup>
+            </div>
+          </Carousel.Root>
+        </div>
+      </div>
+
       {/* Corner Frame Accents */}
       <div className="absolute top-0 left-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20"></div>
       <div className="absolute top-0 right-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-r-2 border-white/30 z-20"></div>
@@ -284,12 +337,23 @@ export default function Home() {
           {/* Buttons Section */}
           <div className="mt-8 lg:mt-10 flex flex-col lg:flex-row gap-3 lg:gap-4">
             <button 
-              onClick={() => setIsAboutMeOpen(true)}
-              className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group"
+              onClick={() => setIsAboutMeOpen(!isAboutMeOpen)}
+              className={`relative px-5 lg:px-6 py-2 lg:py-2.5 font-mono text-xs lg:text-sm border transition-all duration-300 group ${
+                isAboutMeOpen
+                  ? 'bg-white text-black border-white shadow-lg shadow-white/50'
+                  : 'bg-transparent text-white border-white hover:bg-white hover:text-black'
+              }`}
             >
-              <span className="hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
-              <span className="hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
-              ABOUT ME
+              <span className={`hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white transition-opacity ${
+                isAboutMeOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}></span>
+              <span className={`hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white transition-opacity ${
+                isAboutMeOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}></span>
+              {isAboutMeOpen && (
+                <span className="absolute inset-0 animate-pulse bg-white/20"></span>
+              )}
+              ABOUT ME {isAboutMeOpen ? '✓' : ''}
             </button>
             
             <button 
@@ -434,70 +498,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* About Me Popup */}
-      {isAboutMeOpen && (
-        <>
-          {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-300"
-            onClick={() => setIsAboutMeOpen(false)}
-            style={{
-              animation: 'fadeIn 0.3s ease-out'
-            }}
-          />
-          
-          {/* Popup Container */}
-          <div 
-            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
-            style={{
-              animation: 'fadeIn 0.3s ease-out'
-            }}
-          >
-            <div 
-              className="relative bg-black border border-white/30 w-full h-[60vh] max-w-4xl mx-4 pointer-events-auto overflow-hidden"
-              style={{
-                animation: 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-white/40"></div>
-              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-white/40"></div>
-              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-white/40"></div>
-              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-white/40"></div>
-
-              {/* Header */}
-              <div className="border-b border-white/20 px-6 py-4 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white/60"></div>
-                  <h2 className="text-white font-mono text-sm lg:text-base tracking-wider">ABOUT ME</h2>
-                  <div className="flex-1 h-px bg-white/20"></div>
-                </div>
-                <button
-                  onClick={() => setIsAboutMeOpen(false)}
-                  className="text-white/60 hover:text-white transition-colors font-mono text-lg leading-none"
-                  aria-label="Close"
-                >
-                  ×
-                </button>
-              </div>
-
-              {/* Content Area - Ready for React components */}
-              <div className="h-[calc(60vh-73px)] overflow-y-auto px-6 py-6">
-                <div className="text-white/80 font-mono text-xs lg:text-sm">
-                  {/* Placeholder - User will add React components here */}
-                  <div className="opacity-50 text-center py-20">
-                    Content area ready for React components
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10"></div>
-            </div>
-          </div>
-        </>
-      )}
 
       {/* My Projects Popup */}
       {isProjectsOpen && (
