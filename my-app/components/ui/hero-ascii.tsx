@@ -334,103 +334,67 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Job Experience Items - Scrollable Container */}
+          {/* Job Experience Items - Clean Timeline Style */}
           <div className="max-h-[450px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-            <div className="space-y-4">
+            <div className="space-y-6">
               {/* Job 1 */}
-              <div className="relative border border-white/20 p-3 bg-black/40">
-                {/* Corner accents */}
-                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40"></div>
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40"></div>
+              <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
+                <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
                 
-                <div className="flex items-start justify-between mb-2">
-                  <div className="w-2 h-2 bg-white/60 mt-1"></div>
-                  <div className="flex-1 ml-3">
-                    <h3 className="text-white font-mono text-sm font-bold">Software Developer - AI & ML</h3>
-                    <p className="text-white/60 font-mono text-xs">KIA HYUNDAI - South Korea</p>
-                  </div>
+                <div className="space-y-1">
+                  <h3 className="text-white font-mono text-sm font-bold">Software Developer - AI & ML</h3>
+                  <p className="text-white/60 font-mono text-xs">KIA HYUNDAI - South Korea</p>
+                  <p className="text-white/40 font-mono text-[10px]">May 2025 - August 2025</p>
                 </div>
                 
-                <div className="flex items-center gap-2 mb-2 opacity-40">
-                  <div className="flex-1 h-px bg-white"></div>
-                  <span className="text-white text-[9px] font-mono">May 2025 - August 2025</span>
-                </div>
-                
-                <p className="text-gray-400 font-mono text-[10px] leading-snug">
+                <p className="text-gray-400 font-mono text-[10px] leading-relaxed mt-2">
                   Architected modular GenAI toolkit accelerating vehicle prototyping by 60%. Migrated GCP to AWS, achieving 5-10× throughput with 50% cost reduction on L4 GPU clusters.
                 </p>
               </div>
 
               {/* Job 2 */}
-              <div className="relative border border-white/20 p-3 bg-black/40">
-                {/* Corner accents */}
-                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40"></div>
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40"></div>
+              <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
+                <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
                 
-                <div className="flex items-start justify-between mb-2">
-                  <div className="w-2 h-2 bg-white/60 mt-1"></div>
-                  <div className="flex-1 ml-3">
-                    <h3 className="text-white font-mono text-sm font-bold">Machine Learning Intern</h3>
-                    <p className="text-white/60 font-mono text-xs">Depix Technologies - Montréal, Canada</p>
-                  </div>
+                <div className="space-y-1">
+                  <h3 className="text-white font-mono text-sm font-bold">Machine Learning Intern</h3>
+                  <p className="text-white/60 font-mono text-xs">Depix Technologies - Montréal, Canada</p>
+                  <p className="text-white/40 font-mono text-[10px]">December 2024 - Present</p>
                 </div>
                 
-                <div className="flex items-center gap-2 mb-2 opacity-40">
-                  <div className="flex-1 h-px bg-white"></div>
-                  <span className="text-white text-[9px] font-mono">December 2024 - Present</span>
-                </div>
-                
-                <p className="text-gray-400 font-mono text-[10px] leading-snug">
+                <p className="text-gray-400 font-mono text-[10px] leading-relaxed mt-2">
                   Built C++ GenAI plugin for Unreal Engine, reducing iteration time by 60% for 1000+ designers. Delivered AI add-in for Autodesk Fusion 360, accelerating visualization by 30%.
                 </p>
               </div>
 
               {/* Job 3 */}
-              <div className="relative border border-white/20 p-3 bg-black/40">
-                {/* Corner accents */}
-                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40"></div>
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40"></div>
+              <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
+                <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
                 
-                <div className="flex items-start justify-between mb-2">
-                  <div className="w-2 h-2 bg-white/60 mt-1"></div>
-                  <div className="flex-1 ml-3">
-                    <h3 className="text-white font-mono text-sm font-bold">Summer Research Intern</h3>
-                    <p className="text-white/60 font-mono text-xs">McGill University</p>
-                  </div>
+                <div className="space-y-1">
+                  <h3 className="text-white font-mono text-sm font-bold">Summer Research Intern</h3>
+                  <p className="text-white/60 font-mono text-xs">McGill University</p>
+                  <p className="text-white/40 font-mono text-[10px]">2024 - 2025</p>
                 </div>
                 
-                <div className="flex items-center gap-2 mb-2 opacity-40">
-                  <div className="flex-1 h-px bg-white"></div>
-                  <span className="text-white text-[9px] font-mono">2024 - 2025</span>
-                </div>
-                
-                <p className="text-gray-400 font-mono text-[10px] leading-snug">
+                <p className="text-gray-400 font-mono text-[10px] leading-relaxed mt-2">
                   Deployed parallelized searches on HPC clusters executing 10⁶+ configurations to identify optimal Magic Square reduction pathways. Optimized AI hospital simulation with VisualVM profiling.
                 </p>
               </div>
 
-
               {/* Job 4 */}
-              <div className="relative border border-white/20 p-3 bg-black/40">
-                {/* Corner accents */}
-                <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-white/40"></div>
-                <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-white/40"></div>
+              <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
+                <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
                 
-                <div className="flex items-start justify-between mb-2">
-                  <div className="w-2 h-2 bg-white/60 mt-1"></div>
-                  <div className="flex-1 ml-3">
-                    <h3 className="text-white font-mono text-sm font-bold">Undergraduate Tutor</h3>
-                    <p className="text-white/60 font-mono text-xs">McGill University</p>
-                  </div>
+                <div className="space-y-1">
+                  <h3 className="text-white font-mono text-sm font-bold">Undergraduate Tutor</h3>
+                  <p className="text-white/60 font-mono text-xs">McGill University</p>
+                  <p className="text-white/40 font-mono text-[10px]">2024 - Present</p>
                 </div>
                 
-                <div className="flex items-center gap-2 mb-2 opacity-40">
-                  <div className="flex-1 h-px bg-white"></div>
-                  <span className="text-white text-[9px] font-mono">2024 - Present</span>
-                </div>
-                
-                <p className="text-gray-400 font-mono text-[10px] leading-snug">
-                Led tutoring sessions in Introduction to Computer Science, guiding students through fundamental programming concepts, algorithms, and data structures along with Calculus 1 ,2 and 3.                </p>
+                <p className="text-gray-400 font-mono text-[10px] leading-relaxed mt-2">
+                  Led tutoring sessions in Introduction to Computer Science, guiding students through fundamental programming concepts, algorithms, and data structures along with Calculus 1, 2 and 3.
+                </p>
               </div>
             </div>
           </div>
