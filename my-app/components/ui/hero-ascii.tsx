@@ -7,6 +7,47 @@ import { AnimatedTabs } from "@/components/ui/animated-tabs";
 export default function Home() {
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+
+  // Course data for each subject
+  const courseData: Record<string, string[]> = {
+    'Computer Science': [
+    'COMP 206 - Introduction to Software Systems',
+    'COMP 250 - Introduction to Computer Science',
+    'COMP 251 - Algorithms and Data Structures',
+    'COMP 273 - Introduction to Computer Systems',
+    'COMP 303 - Software Design',
+    'COMP 360 - Algorithm Design',
+    'COMP 370 - Introduction to Data Science',
+    'COMP 400 - Project in Computer Science',
+    'COMP 421 - Database Systems',
+    'COMP 424 - Artificial Intelligence',
+    'COMP 550 - Natural Language Processing',
+    'COMP 551 - Applied Machine Learning',
+    'COMP 558 - Fundamentals of Computer Vision',
+    'COMP 561 - Computational Biology Methods and Research'
+],
+
+'Economics': [
+    'ECON 208 - Microeconomic Analysis and Applications',
+    'ECON 209 - Macroeconomic Analysis and Applications',
+    'ECON 219 - Current Economic Problems: Topics',
+    'ECON 225 - Economics of the Environment',
+    'ECON 337 - Introduction to Econometrics 1',
+    'ECON 338 - Introduction to Econometrics 2',
+    'ECON 420 - Topics in Economic Theory'
+],
+
+'Statistics': [
+    'MATH 203 - Principles of Statistics I',
+    'MATH 208 - Introduction to Statistical Computing',
+    'MATH 323 - Probability',
+    'MATH 324 - Statistics',
+    'MATH 423 - Applied Regression'
+]
+
+    
+  };
 
   useEffect(() => {
     const embedScript = document.createElement('script');
@@ -93,10 +134,10 @@ export default function Home() {
     <main className="relative min-h-screen overflow-hidden bg-black">
       {/* Vitruvian man animation - hidden on mobile */}
       <div className="absolute inset-0 w-full h-full hidden lg:block">
-        {/* <div 
-          data-us-project="dKAfEG1XbHOSfoYKG5DH" // dKAfEG1XbHOSfoYKG5DH // Qo3EgqzXPhVu9pwiFrM3
+        <div 
+          data-us-project="v3Vc5JQma33EHrmE0wKM" // dKAfEG1XbHOSfoYKG5DH // Qo3EgqzXPhVu9pwiFrM3
           style={{ width: '100%', height: '100%', minHeight: '100vh' }}
-        /> */}
+        />
       </div>
 
       {/* Mobile stars background */}
@@ -138,7 +179,28 @@ export default function Home() {
           {/* About Me Section */}
           <div className="mt-4 lg:mt-6 max-w-[90vw] lg:max-w-md pr-4 lg:pr-0">
             <p className="text-xs lg:text-sm text-white/70 font-mono leading-relaxed mb-2">
-              Currently a 4th year student at McGill University studying Computer Science with minors in Economics and Statistics.
+              Currently a 4th year student at McGill University studying{' '}
+              <button
+                onClick={() => setSelectedSubject('Computer Science')}
+                className="text-white/90 font-semibold hover:text-white inline-block hover:-translate-y-0.5 transition-all duration-200 cursor-pointer border-b border-white/30 hover:border-white/60"
+              >
+                Computer Science
+              </button>
+              {' '}with minors in{' '}
+              <button
+                onClick={() => setSelectedSubject('Economics')}
+                className="text-white/90 font-semibold hover:text-white inline-block hover:-translate-y-0.5 transition-all duration-200 cursor-pointer border-b border-white/30 hover:border-white/60"
+              >
+                Economics
+              </button>
+              {' '}and{' '}
+              <button
+                onClick={() => setSelectedSubject('Statistics')}
+                className="text-white/90 font-semibold hover:text-white inline-block hover:-translate-y-0.5 transition-all duration-200 cursor-pointer border-b border-white/30 hover:border-white/60"
+              >
+                Statistics
+              </button>
+              .
             </p>
             <p className="text-xs lg:text-sm text-white/70 font-mono leading-relaxed">
               While I don't claim to be a frog, I identify as an owl because my sleep schedule is pretty messed up zzz.
@@ -533,6 +595,146 @@ export default function Home() {
         </>
       )}
 
+      {/* Course List Popup - Bottom Center */}
+      {selectedSubject && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300"
+            onClick={() => setSelectedSubject(null)}
+            style={{
+              animation: 'fadeIn 0.3s ease-out'
+            }}
+          />
+          
+          {/* Popup Container - Bottom Center */}
+          <div 
+            className="fixed left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl px-4 pb-4 pointer-events-none"
+            style={{
+              bottom: 'calc(5vh + 60px)' // Position above the footer
+            }}
+          >
+            <div 
+              className="relative bg-black border-2 border-white/40 w-full max-h-[50vh] pointer-events-auto overflow-hidden shadow-2xl"
+              style={{
+                animation: 'tvOpenAnimation 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Corner accents */}
+              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white/60"></div>
+              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/60"></div>
+              <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white/60"></div>
+              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white/60"></div>
+
+              {/* Glowing top border effect */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+              
+              {/* TV scan line effect */}
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.3) 50%, transparent 51%)',
+                  backgroundSize: '100% 4px',
+                  animation: 'scanLine 0.5s ease-out',
+                  opacity: 0
+                }}
+              ></div>
+
+              {/* Header */}
+              <div className="border-b border-white/30 bg-black/60 backdrop-blur-sm">
+                {/* Title Bar */}
+                <div className="px-4 lg:px-6 py-3 flex items-center justify-between border-b border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-white/80 animate-pulse"></div>
+                    <h2 className="text-white font-mono text-xs lg:text-sm tracking-wider font-bold">
+                      ACADEMIC COURSES
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() => setSelectedSubject(null)}
+                    className="text-white/60 hover:text-white transition-colors font-mono text-lg leading-none hover:scale-110 transition-transform duration-200"
+                    aria-label="Close"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {/* Tabs */}
+                <div className="flex items-center px-4 lg:px-6 gap-1">
+                  {['Computer Science', 'Economics', 'Statistics'].map((subject) => (
+                    <button
+                      key={subject}
+                      onClick={() => setSelectedSubject(subject)}
+                      className={`group relative px-3 lg:px-4 py-2 font-mono text-[10px] lg:text-xs transition-all duration-300 ${
+                        selectedSubject === subject
+                          ? 'text-white font-bold'
+                          : 'text-white/50 hover:text-white/80'
+                      }`}
+                    >
+                      {subject.toUpperCase()}
+                      {/* Active tab indicator */}
+                      {selectedSubject === subject && (
+                        <>
+                          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white animate-pulse"></div>
+                          <div className="absolute top-0 left-0 w-1 h-1 bg-white"></div>
+                          <div className="absolute top-0 right-0 w-1 h-1 bg-white"></div>
+                        </>
+                      )}
+                      {/* Hover indicator for inactive tabs */}
+                      {selectedSubject !== subject && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Course List Content */}
+              <div className="max-h-[40vh] overflow-y-auto px-4 lg:px-6 py-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                <div 
+                  key={selectedSubject}
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3"
+                  style={{
+                    animation: 'tabContentFade 0.4s ease-out'
+                  }}
+                >
+                  {courseData[selectedSubject].map((course, index) => (
+                    <div 
+                      key={`${selectedSubject}-${index}`}
+                      className="relative border border-white/20 p-2.5 lg:p-3 bg-black/40 hover:bg-white/5 transition-all duration-200 hover:border-white/40 group"
+                      style={{
+                        animation: `fadeInStagger 0.3s ease-out ${index * 0.03}s both`
+                      }}
+                    >
+                      {/* Small corner accent */}
+                      <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30 group-hover:border-white/60 transition-colors"></div>
+                      
+                      <div className="flex items-start gap-2">
+                        <div className="w-1 h-1 bg-white/60 mt-1.5 flex-shrink-0"></div>
+                        <p className="text-white/80 font-mono text-[10px] lg:text-xs leading-relaxed">
+                          {course}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer indicator */}
+              <div className="border-t border-white/20 px-4 lg:px-6 py-2 flex items-center justify-center bg-black/60">
+                <span className="text-white/40 text-[8px] lg:text-[9px] font-mono">
+                  {courseData[selectedSubject].length} COURSES
+                </span>
+              </div>
+
+              {/* Bottom glow effect */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+            </div>
+          </div>
+        </>
+      )}
+
       <style jsx>{`
         @keyframes fadeIn {
           from {
@@ -551,6 +753,56 @@ export default function Home() {
           to {
             opacity: 1;
             transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes tvOpenAnimation {
+          0% {
+            opacity: 0;
+            transform: scaleY(0) scaleX(0.2);
+            filter: brightness(2);
+          }
+          50% {
+            opacity: 1;
+            transform: scaleY(0.6) scaleX(1);
+          }
+          100% {
+            opacity: 1;
+            transform: scaleY(1) scaleX(1);
+            filter: brightness(1);
+          }
+        }
+
+        @keyframes fadeInStagger {
+          from {
+            opacity: 0;
+            transform: translateY(5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scanLine {
+          0% {
+            opacity: 0.8;
+            transform: translateY(-100%);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(100%);
+          }
+        }
+
+        @keyframes tabContentFade {
+          0% {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
           }
         }
 
