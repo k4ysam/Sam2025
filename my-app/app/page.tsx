@@ -1,4 +1,3 @@
-import ResumePage from "@/components/ui/portfolio-hero-with-paper-shaders";
 import Home from "@/components/ui/hero-ascii";
 
 export default function DemoOne() {

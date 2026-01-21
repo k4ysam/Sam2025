@@ -305,7 +305,7 @@ export default function Home() {
               .
             </p>
             <p className="text-xs lg:text-sm text-white/70 font-mono leading-relaxed">
-              While I don't claim to be a frog, I identify as an owl because my sleep schedule is pretty messed up zzz.
+              While I don&apos;t claim to be a frog, I identify as an owl because my sleep schedule is pretty messed up zzz.
             </p>
           </div>
 
