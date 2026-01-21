@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ark-ui/react": "^4.6.0",
     "@paper-design/shaders-react": "^0.0.64",
     "@react-three/fiber": "^9.4.0",
     "@react-three/postprocessing": "^3.0.4",
