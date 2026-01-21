@@ -2,9 +2,63 @@
 
 
 import { useEffect, useState } from 'react';
+import { AnimatedTabs } from "@/components/ui/animated-tabs";
+import { Carousel } from "@ark-ui/react/carousel";
 
 export default function Home() {
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false);
+  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+
+  // Project list - matching tab names in AnimatedTabs
+  const projects = [
+    'Stealth',
+    'PromptDuels',
+    'Lecture Summariser',
+    'McGill Food Tracker',
+    'Stock Price Predictor'
+  ];
+
+  // Course data for each subject
+  const courseData: Record<string, string[]> = {
+    'Computer Science': [
+    'COMP 206 - Introduction to Software Systems',
+    'COMP 250 - Introduction to Computer Science',
+    'COMP 251 - Algorithms and Data Structures',
+    'COMP 273 - Introduction to Computer Systems',
+    'COMP 303 - Software Design',
+    'COMP 360 - Algorithm Design',
+    'COMP 370 - Introduction to Data Science',
+    'COMP 400 - Project in Computer Science',
+    'COMP 421 - Database Systems',
+    'COMP 424 - Artificial Intelligence',
+    'COMP 550 - Natural Language Processing',
+    'COMP 551 - Applied Machine Learning',
+    'COMP 558 - Fundamentals of Computer Vision',
+    'COMP 561 - Computational Biology Methods and Research'
+],
+
+'Economics': [
+    'ECON 208 - Microeconomic Analysis and Applications',
+    'ECON 209 - Macroeconomic Analysis and Applications',
+    'ECON 219 - Current Economic Problems: Topics',
+    'ECON 225 - Economics of the Environment',
+    'ECON 337 - Introduction to Econometrics 1',
+    'ECON 338 - Introduction to Econometrics 2',
+    'ECON 420 - Topics in Economic Theory'
+],
+
+'Statistics': [
+    'MATH 203 - Principles of Statistics I',
+    'MATH 208 - Introduction to Statistical Computing',
+    'MATH 323 - Probability',
+    'MATH 324 - Statistics',
+    'MATH 423 - Applied Regression'
+]
+
+    
+  };
 
   useEffect(() => {
     const embedScript = document.createElement('script');
@@ -92,7 +146,7 @@ export default function Home() {
       {/* Vitruvian man animation - hidden on mobile */}
       <div className="absolute inset-0 w-full h-full hidden lg:block">
         <div 
-          data-us-project="whwOGlfJ5Rz2rHaEUgHl" 
+          data-us-project="v3Vc5JQma33EHrmE0wKM" // dKAfEG1XbHOSfoYKG5DH // Qo3EgqzXPhVu9pwiFrM3
           style={{ width: '100%', height: '100%', minHeight: '100vh' }}
         />
       </div>
@@ -109,6 +163,100 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Vertical Carousel - Center Top - Toggleable */}
+      <div 
+        className="absolute top-20 lg:top-24 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
+        style={{ width: '320px' }}
+      >
+        <div
+          className={`transition-all duration-500 ease-in-out ${
+            isAboutMeOpen 
+              ? 'opacity-100 translate-x-0' 
+              : 'opacity-0 -translate-x-full pointer-events-none'
+          }`}
+        >
+          <Carousel.Root
+            defaultPage={0}
+            slideCount={4}
+            orientation="vertical"
+            className="max-h-96 w-80 mx-auto"
+          >
+            <div className="flex gap-4">
+              <Carousel.Control className="flex flex-col justify-center gap-2">
+                <Carousel.PrevTrigger className="px-2 py-3 bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-lg transition-all duration-200 text-white font-mono">
+                  ↑
+                </Carousel.PrevTrigger>
+                <Carousel.NextTrigger className="px-2 py-3 bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-lg transition-all duration-200 text-white font-mono">
+                  ↓
+                </Carousel.NextTrigger>
+              </Carousel.Control>
+              <Carousel.ItemGroup className="overflow-hidden rounded-lg h-80 flex-1 border border-white/20">
+                {Array.from({ length: 4 }, (_, i) => (
+                  <Carousel.Item key={i} index={i}>
+                    <img
+                      src={`https://picsum.photos/seed/${i + 20}/300/400`}
+                      alt={`Slide ${i + 1}`}
+                      className="w-full h-80 object-cover"
+                    />
+                  </Carousel.Item>
+                ))}
+              </Carousel.ItemGroup>
+              <Carousel.IndicatorGroup className="flex flex-col justify-center items-center gap-2">
+                {Array.from({ length: 4 }, (_, i) => (
+                  <Carousel.Indicator
+                    key={i}
+                    index={i}
+                    className="w-2 h-8 rounded-full bg-white/30 data-[current]:bg-white transition-colors cursor-pointer hover:bg-white/50"
+                  />
+                ))}
+              </Carousel.IndicatorGroup>
+            </div>
+          </Carousel.Root>
+        </div>
+      </div>
+
+      {/* Project List - Center Top - Toggleable */}
+      <div 
+        className="absolute top-20 lg:top-24 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
+        style={{ width: '280px', maxWidth: '85vw' }}
+      >
+        <div
+          className={`transition-all duration-500 ease-in-out space-y-2 ${
+            isProjectsOpen 
+              ? 'opacity-100 translate-x-0' 
+              : 'opacity-0 translate-x-full pointer-events-none'
+          }`}
+        >
+          {/* Project List */}
+          {projects.map((project, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setSelectedProject(project);
+                setIsProjectsOpen(false);
+              }}
+              className="w-full text-left px-4 py-3 bg-black/60 hover:bg-white/10 border border-white/30 hover:border-white/60 transition-all duration-200 group backdrop-blur-sm"
+              style={{
+                animation: `fadeInStagger 0.3s ease-out ${index * 0.05}s both`
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-1 h-1 bg-white/60 group-hover:bg-white transition-colors"></div>
+                <span className="text-white/80 group-hover:text-white font-mono text-sm transition-colors">
+                  {project}
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Corner Frame Accents */}
+      <div className="absolute top-0 left-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20"></div>
+      <div className="absolute top-0 right-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-r-2 border-white/30 z-20"></div>
+      <div className="absolute left-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-l-2 border-white/30 z-20" style={{ bottom: '5vh' }}></div>
+      <div className="absolute right-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-r-2 border-white/30 z-20" style={{ bottom: '5vh' }}></div>
+
       {/* Name and Info Section - Right under header */}
       <div className="absolute top-0 left-0 right-0 z-20 pt-16 lg:pt-20">
         <div className="pl-10 lg:pl-18 pt-2">
@@ -121,82 +269,276 @@ export default function Home() {
               <span className="text-white/60 text-[10px] lg:text-[12px] font-mono">Creative Developer</span>
             </div>
             <div className="flex items-center gap-3 text-[10px] lg:text-[12px] font-mono text-white/60">
-              <span>McGill University</span>
+              <span>@ McGill University</span>
               <div className="w-1 h-1 bg-white/40 rounded-full"></div>
-              <span>Montreal, Canada</span>
+              <span>Montréal, Canada</span>
             </div>
+          </div>
+          
+          {/* About Me Section */}
+          <div className="mt-4 lg:mt-6 max-w-[90vw] lg:max-w-md pr-4 lg:pr-0">
+            <p className="text-xs lg:text-sm text-white/70 font-mono leading-relaxed mb-2">
+              Currently a 4th year student at McGill University studying{' '}
+              <button
+                onClick={() => setSelectedSubject('Computer Science')}
+                className="text-white/90 font-semibold hover:text-white inline-block hover:-translate-y-0.5 transition-all duration-200 cursor-pointer border-b border-white/30 hover:border-white/60"
+              >
+                Computer Science
+              </button>
+              {' '}with minors in{' '}
+              <button
+                onClick={() => setSelectedSubject('Economics')}
+                className="text-white/90 font-semibold hover:text-white inline-block hover:-translate-y-0.5 transition-all duration-200 cursor-pointer border-b border-white/30 hover:border-white/60"
+              >
+                Economics
+              </button>
+              {' '}and{' '}
+              <button
+                onClick={() => setSelectedSubject('Statistics')}
+                className="text-white/90 font-semibold hover:text-white inline-block hover:-translate-y-0.5 transition-all duration-200 cursor-pointer border-b border-white/30 hover:border-white/60"
+              >
+                Statistics
+              </button>
+              .
+            </p>
+            <p className="text-xs lg:text-sm text-white/70 font-mono leading-relaxed">
+              While I don't claim to be a frog, I identify as an owl because my sleep schedule is pretty messed up zzz.
+            </p>
+          </div>
+
+          {/* Volunteer Section */}
+          <div className="mt-6 lg:mt-8 max-w-[90vw] lg:max-w-md pr-4 lg:pr-0">
+            {/* Section Title */}
+            <div className="mb-3 opacity-60">
+              <h3 className="text-white font-mono text-[10px] lg:text-xs tracking-wider">VOLUNTEER & LEADERSHIP</h3>
+              <div className="w-16 h-px bg-white/30 mt-1"></div>
+            </div>
+
+            {/* Volunteer Items */}
+            <div className="space-y-2">
+              {/* Hack4Impact */}
+              <div>
+                <h4 className="text-white/80 font-mono text-[10px] lg:text-xs font-semibold">
+                  <a 
+                    href="https://mcgill.hack4impact.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block hover:underline hover:scale-105 transition-transform duration-200 cursor-pointer"
+                  >
+                    Hack4Impact McGill
+                  </a>
+                  <span> – Director of Public Relations and Sponsorships</span>
+                </h4>
+              </div>
+
+              {/* McGill Ventures */}
+              <div>
+                <h4 className="text-white/80 font-mono text-[10px] lg:text-xs font-semibold">
+                  <a 
+                    href="https://mcgillvc.ca/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block hover:underline hover:scale-105 transition-transform duration-200 cursor-pointer"
+                  >
+                    McGill Ventures
+                  </a>
+                  <span> – Corporate Relations Executive</span>
+                </h4>
+              </div>
+
+              {/* PUMP */}
+              <div>
+                <h4 className="text-white/80 font-mono text-[10px] lg:text-xs font-semibold">
+                  <a 
+                    href="https://www.pumprofessionals.org/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block hover:underline hover:scale-105 transition-transform duration-200 cursor-pointer"
+                  >
+                    PuMP
+                  </a>
+                  <span> - International Student Representative</span>
+                </h4>
+              </div>
+              
+              {/* McGill AI Society */}
+              <div>
+                <h4 className="text-white/80 font-mono text-[10px] lg:text-xs font-semibold">
+                  <a 
+                    href="https://mcgillai.com/mais202" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block hover:underline hover:scale-105 transition-transform duration-200 cursor-pointer"
+                  >
+                    McGill AI Society
+                  </a>
+                  <span> – Accelerated Machine Learning BootCamp</span>
+                </h4>
+              </div>
+
+              
+            </div>
+          </div>
+
+          {/* Buttons Section */}
+          <div className="mt-8 lg:mt-10 flex flex-col lg:flex-row gap-3 lg:gap-4">
+            <button 
+              onClick={() => {
+                if (isProjectsOpen) {
+                  setIsProjectsOpen(false);
+                  setTimeout(() => setIsAboutMeOpen(!isAboutMeOpen), 250);
+                } else {
+                  setIsAboutMeOpen(!isAboutMeOpen);
+                }
+              }}
+              className={`relative px-5 lg:px-6 py-2 lg:py-2.5 font-mono text-xs lg:text-sm border transition-all duration-300 group ${
+                isAboutMeOpen
+                  ? 'bg-white text-black border-white shadow-lg shadow-white/50'
+                  : 'bg-transparent text-white border-white hover:bg-white hover:text-black'
+              }`}
+            >
+              <span className={`hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white transition-opacity ${
+                isAboutMeOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}></span>
+              <span className={`hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white transition-opacity ${
+                isAboutMeOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}></span>
+              {isAboutMeOpen && (
+                <span className="absolute inset-0 animate-pulse bg-white/20"></span>
+              )}
+              ABOUT ME {isAboutMeOpen ? '✓' : ''}
+            </button>
+            
+            <button 
+              onClick={() => {
+                if (isAboutMeOpen) {
+                  setIsAboutMeOpen(false);
+                  setTimeout(() => setIsProjectsOpen(!isProjectsOpen), 250);
+                } else {
+                  setIsProjectsOpen(!isProjectsOpen);
+                }
+              }}
+              className={`relative px-5 lg:px-6 py-2 lg:py-2.5 font-mono text-xs lg:text-sm border transition-all duration-300 group ${
+                isProjectsOpen
+                  ? 'bg-white text-black border-white shadow-lg shadow-white/50'
+                  : 'bg-transparent text-white border-white hover:bg-white hover:text-black'
+              }`}
+            >
+              <span className={`hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white transition-opacity ${
+                isProjectsOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}></span>
+              <span className={`hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white transition-opacity ${
+                isProjectsOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+              }`}></span>
+              {isProjectsOpen && (
+                <span className="absolute inset-0 animate-pulse bg-white/20"></span>
+              )}
+              MY PROJECTS {isProjectsOpen ? '✓' : ''}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* Corner Frame Accents */}
-      <div className="absolute top-0 left-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-l-2 border-white/30 z-20"></div>
-      <div className="absolute top-0 right-0 w-8 h-8 lg:w-12 lg:h-12 border-t-2 border-r-2 border-white/30 z-20"></div>
-      <div className="absolute left-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-l-2 border-white/30 z-20" style={{ bottom: '5vh' }}></div>
-      <div className="absolute right-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-r-2 border-white/30 z-20" style={{ bottom: '5vh' }}></div>
+      {/* Content Section - Experience on the right */}
+      <div className="relative z-10 flex min-h-screen items-center justify-end pt-16 lg:pt-0" style={{ marginTop: '5vh' }}>
+        {/* Right side - Job Experience Section */}
+        <div className="hidden lg:block max-w-md relative pr-18">
+          {/* Top decorative line */}
+          <div className="flex items-center gap-2 mb-3 opacity-60">
+            <div className="flex-1 h-px bg-white"></div>
+            <span className="text-white text-[10px] font-mono tracking-wider">002</span>
+            <div className="w-8 h-px bg-white"></div>
+          </div>
 
-      <div className="relative z-10 flex min-h-screen items-center pt-16 lg:pt-0" style={{ marginTop: '5vh' }}>
-        <div className="container mx-auto px-6 lg:px-16 lg:ml-[10%]">
-          <div className="max-w-lg relative">
-            {/* Top decorative line */}
-            <div className="flex items-center gap-2 mb-3 opacity-60">
-              <div className="w-8 h-px bg-white"></div>
-              <span className="text-white text-[10px] font-mono tracking-wider">001</span>
-              <div className="flex-1 h-px bg-white"></div>
+          {/* Decorative dots pattern */}
+          <div className="flex gap-1 mb-4 opacity-40 justify-end">
+            {Array.from({ length: 30 }).map((_, i) => (
+              <div key={i} className="w-0.5 h-0.5 bg-white rounded-full"></div>
+            ))}
+          </div>
+
+          {/* Section Title */}
+          <div className="relative mb-6">
+            <div className="absolute -right-3 top-0 bottom-0 w-1 dither-pattern opacity-40"></div>
+            <h2 className="text-xl font-bold text-white mb-2 font-mono tracking-wider text-right">
+              EXPERIENCE
+            </h2>
+            <div className="flex items-center gap-2 opacity-40 justify-end">
+              <span className="text-white text-[9px] font-mono">PROFESSIONAL</span>
+              <div className="w-12 h-px bg-white"></div>
             </div>
+          </div>
 
-            {/* Title with dithered accent */}
-            <div className="relative">
-              <div className="hidden lg:block absolute -left-3 top-0 bottom-0 w-1 dither-pattern opacity-40"></div>
-              <h1 className="text-2xl lg:text-5xl font-bold text-white mb-3 lg:mb-4 leading-tight font-mono tracking-wider" style={{ letterSpacing: '0.1em' }}>
-                Something
-                <span className="block text-white mt-1 lg:mt-2 opacity-90">
-                  Something
-                </span>
-              </h1>
-            </div>
+          {/* Job Experience Items - Clean Timeline Style */}
+          <div className="max-h-[450px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+            <div className="space-y-6">
+              {/* Job 1 */}
+              <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
+                <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
+                
+                <div className="space-y-1">
+                  <h3 className="text-white font-mono text-sm font-bold">Software Developer - AI & ML</h3>
+                  <p className="text-white/60 font-mono text-xs">KIA HYUNDAI - South Korea</p>
+                  <p className="text-white/40 font-mono text-[10px]">May 2025 - August 2025</p>
+                </div>
+                
+                <p className="text-gray-400 font-mono text-[10px] leading-relaxed mt-2">
+                  Architected modular GenAI toolkit accelerating vehicle prototyping by 60%. Migrated GCP to AWS, achieving 5-10× throughput with 50% cost reduction on L4 GPU clusters.
+                </p>
+              </div>
 
-            {/* Decorative dots pattern - desktop only */}
-            <div className="hidden lg:flex gap-1 mb-3 opacity-40">
-              {Array.from({ length: 40 }).map((_, i) => (
-                <div key={i} className="w-0.5 h-0.5 bg-white rounded-full"></div>
-              ))}
-            </div>
+              {/* Job 2 */}
+              <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
+                <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
+                
+                <div className="space-y-1">
+                  <h3 className="text-white font-mono text-sm font-bold">Machine Learning Intern</h3>
+                  <p className="text-white/60 font-mono text-xs">Depix Technologies - Montréal, Canada</p>
+                  <p className="text-white/40 font-mono text-[10px]">December 2024 - Present</p>
+                </div>
+                
+                <p className="text-gray-400 font-mono text-[10px] leading-relaxed mt-2">
+                  Built C++ GenAI plugin for Unreal Engine, reducing iteration time by 60% for 1000+ designers. Delivered AI add-in for Autodesk Fusion 360, accelerating visualization by 30%.
+                </p>
+              </div>
 
-            {/* Description with subtle grid pattern */}
-            <div className="relative">
-              <p className="text-xs lg:text-base text-gray-300 mb-5 lg:mb-6 leading-relaxed font-mono opacity-80">
-                Where geometry meets humanity — Da Vinci's vision of ideal form
-              </p>
-              
-              {/* Technical corner accent - desktop only */}
-              <div className="hidden lg:block absolute -right-4 top-1/2 w-3 h-3 border border-white opacity-30" style={{ transform: 'translateY(-50%)' }}>
-                <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white" style={{ transform: 'translate(-50%, -50%)' }}></div>
+              {/* Job 3 */}
+              <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
+                <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
+                
+                <div className="space-y-1">
+                  <h3 className="text-white font-mono text-sm font-bold">Summer Research Intern</h3>
+                  <p className="text-white/60 font-mono text-xs">McGill University</p>
+                  <p className="text-white/40 font-mono text-[10px]">2024 - 2025</p>
+                </div>
+                
+                <p className="text-gray-400 font-mono text-[10px] leading-relaxed mt-2">
+                  Deployed parallelized searches on HPC clusters executing 10⁶+ configurations to identify optimal Magic Square reduction pathways. Optimized AI hospital simulation with VisualVM profiling.
+                </p>
+              </div>
+
+              {/* Job 4 */}
+              <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
+                <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
+                
+                <div className="space-y-1">
+                  <h3 className="text-white font-mono text-sm font-bold">Undergraduate Tutor</h3>
+                  <p className="text-white/60 font-mono text-xs">McGill University</p>
+                  <p className="text-white/40 font-mono text-[10px]">2024 - Present</p>
+                </div>
+                
+                <p className="text-gray-400 font-mono text-[10px] leading-relaxed mt-2">
+                  Led tutoring sessions in Introduction to Computer Science, guiding students through fundamental programming concepts, algorithms, and data structures along with Calculus 1, 2 and 3.
+                </p>
               </div>
             </div>
+          </div>
 
-            {/* Buttons with technical accents */}
-            <div className="flex flex-col lg:flex-row gap-3 lg:gap-4">
-              <button 
-                onClick={() => setIsAboutMeOpen(true)}
-                className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent text-white font-mono text-xs lg:text-sm border border-white hover:bg-white hover:text-black transition-all duration-200 group"
-              >
-                <span className="hidden lg:block absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                <span className="hidden lg:block absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                ABOUT ME
-              </button>
-              
-              <button className="relative px-5 lg:px-6 py-2 lg:py-2.5 bg-transparent border border-white text-white font-mono text-xs lg:text-sm hover:bg-white hover:text-black transition-all duration-200" style={{ borderWidth: '1px' }}>
-                LEARN MORE
-              </button>
-            </div>
-
-            {/* Bottom technical notation - desktop only */}
-            <div className="hidden lg:flex items-center gap-2 mt-6 opacity-40">
-              <span className="text-white text-[9px] font-mono">∞</span>
-              <div className="flex-1 h-px bg-white"></div>
-              <span className="text-white text-[9px] font-mono">VITRUVIAN</span>
-            </div>
+          {/* Bottom technical notation */}
+          <div className="flex items-center gap-2 mt-6 opacity-40 justify-end">
+            <span className="text-white text-[9px] font-mono">TIMELINE</span>
+            <div className="flex-1 h-px bg-white"></div>
+            <span className="text-white text-[9px] font-mono">✦</span>
           </div>
         </div>
       </div>
@@ -227,13 +569,15 @@ export default function Home() {
         </div>
       </div>
 
-      {/* About Me Popup */}
-      {isAboutMeOpen && (
+
+
+      {/* Project Details Popup */}
+      {selectedProject && (
         <>
           {/* Backdrop */}
           <div 
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-300"
-            onClick={() => setIsAboutMeOpen(false)}
+            onClick={() => setSelectedProject(null)}
             style={{
               animation: 'fadeIn 0.3s ease-out'
             }}
@@ -241,52 +585,171 @@ export default function Home() {
           
           {/* Popup Container */}
           <div 
-            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none"
+            className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none p-4"
             style={{
               animation: 'fadeIn 0.3s ease-out'
             }}
           >
             <div 
-              className="relative bg-black border border-white/30 w-full h-[60vh] max-w-4xl mx-4 pointer-events-auto overflow-hidden"
+              className="relative flex flex-col items-center pointer-events-auto"
               style={{
                 animation: 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* AnimatedTabs */}
+              <div className="w-full max-w-4xl">
+                <AnimatedTabs />
+              </div>
+
+              {/* Close button below */}
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="mt-4 text-white/60 hover:text-white transition-colors font-mono text-2xl leading-none w-10 h-10 flex items-center justify-center border border-white/30 hover:border-white/60 bg-black/60 backdrop-blur-sm hover:bg-white/10"
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Course List Popup - Bottom Center */}
+      {selectedSubject && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity duration-300"
+            onClick={() => setSelectedSubject(null)}
+            style={{
+              animation: 'fadeIn 0.3s ease-out'
+            }}
+          />
+          
+          {/* Popup Container - Bottom Center */}
+          <div 
+            className="fixed left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl px-4 pb-4 pointer-events-none"
+            style={{
+              bottom: 'calc(5vh + 60px)' // Position above the footer
+            }}
+          >
+            <div 
+              className="relative bg-black border-2 border-white/40 w-full max-h-[50vh] pointer-events-auto overflow-hidden shadow-2xl"
+              style={{
+                animation: 'tvOpenAnimation 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
               {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-white/40"></div>
-              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-white/40"></div>
-              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-white/40"></div>
-              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-white/40"></div>
+              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-white/60"></div>
+              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-white/60"></div>
+              <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-white/60"></div>
+              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white/60"></div>
+
+              {/* Glowing top border effect */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+              
+              {/* TV scan line effect */}
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to bottom, transparent 50%, rgba(255,255,255,0.3) 50%, transparent 51%)',
+                  backgroundSize: '100% 4px',
+                  animation: 'scanLine 0.5s ease-out',
+                  opacity: 0
+                }}
+              ></div>
 
               {/* Header */}
-              <div className="border-b border-white/20 px-6 py-4 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-white/60"></div>
-                  <h2 className="text-white font-mono text-sm lg:text-base tracking-wider">ABOUT ME</h2>
-                  <div className="flex-1 h-px bg-white/20"></div>
-                </div>
-                <button
-                  onClick={() => setIsAboutMeOpen(false)}
-                  className="text-white/60 hover:text-white transition-colors font-mono text-lg leading-none"
-                  aria-label="Close"
-                >
-                  ×
-                </button>
-              </div>
-
-              {/* Content Area - Ready for React components */}
-              <div className="h-[calc(60vh-73px)] overflow-y-auto px-6 py-6">
-                <div className="text-white/80 font-mono text-xs lg:text-sm">
-                  {/* Placeholder - User will add React components here */}
-                  <div className="opacity-50 text-center py-20">
-                    Content area ready for React components
+              <div className="border-b border-white/30 bg-black/60 backdrop-blur-sm">
+                {/* Title Bar */}
+                <div className="px-4 lg:px-6 py-3 flex items-center justify-between border-b border-white/10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-white/80 animate-pulse"></div>
+                    <h2 className="text-white font-mono text-xs lg:text-sm tracking-wider font-bold">
+                      ACADEMIC COURSES
+                    </h2>
                   </div>
+                  <button
+                    onClick={() => setSelectedSubject(null)}
+                    className="text-white/60 hover:text-white transition-colors font-mono text-lg leading-none hover:scale-110 transition-transform duration-200"
+                    aria-label="Close"
+                  >
+                    ×
+                  </button>
+                </div>
+
+                {/* Tabs */}
+                <div className="flex items-center px-4 lg:px-6 gap-1">
+                  {['Computer Science', 'Economics', 'Statistics'].map((subject) => (
+                    <button
+                      key={subject}
+                      onClick={() => setSelectedSubject(subject)}
+                      className={`group relative px-3 lg:px-4 py-2 font-mono text-[10px] lg:text-xs transition-all duration-300 ${
+                        selectedSubject === subject
+                          ? 'text-white font-bold'
+                          : 'text-white/50 hover:text-white/80'
+                      }`}
+                    >
+                      {subject.toUpperCase()}
+                      {/* Active tab indicator */}
+                      {selectedSubject === subject && (
+                        <>
+                          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white animate-pulse"></div>
+                          <div className="absolute top-0 left-0 w-1 h-1 bg-white"></div>
+                          <div className="absolute top-0 right-0 w-1 h-1 bg-white"></div>
+                        </>
+                      )}
+                      {/* Hover indicator for inactive tabs */}
+                      {selectedSubject !== subject && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/20 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                      )}
+                    </button>
+                  ))}
                 </div>
               </div>
 
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-white/10"></div>
+              {/* Course List Content */}
+              <div className="max-h-[40vh] overflow-y-auto px-4 lg:px-6 py-4 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+                <div 
+                  key={selectedSubject}
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3"
+                  style={{
+                    animation: 'tabContentFade 0.4s ease-out'
+                  }}
+                >
+                  {courseData[selectedSubject].map((course, index) => (
+                    <div 
+                      key={`${selectedSubject}-${index}`}
+                      className="relative border border-white/20 p-2.5 lg:p-3 bg-black/40 hover:bg-white/5 transition-all duration-200 hover:border-white/40 group"
+                      style={{
+                        animation: `fadeInStagger 0.3s ease-out ${index * 0.03}s both`
+                      }}
+                    >
+                      {/* Small corner accent */}
+                      <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30 group-hover:border-white/60 transition-colors"></div>
+                      
+                      <div className="flex items-start gap-2">
+                        <div className="w-1 h-1 bg-white/60 mt-1.5 flex-shrink-0"></div>
+                        <p className="text-white/80 font-mono text-[10px] lg:text-xs leading-relaxed">
+                          {course}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Footer indicator */}
+              <div className="border-t border-white/20 px-4 lg:px-6 py-2 flex items-center justify-center bg-black/60">
+                <span className="text-white/40 text-[8px] lg:text-[9px] font-mono">
+                  {courseData[selectedSubject].length} COURSES
+                </span>
+              </div>
+
+              {/* Bottom glow effect */}
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             </div>
           </div>
         </>
@@ -313,6 +776,56 @@ export default function Home() {
           }
         }
 
+        @keyframes tvOpenAnimation {
+          0% {
+            opacity: 0;
+            transform: scaleY(0) scaleX(0.2);
+            filter: brightness(2);
+          }
+          50% {
+            opacity: 1;
+            transform: scaleY(0.6) scaleX(1);
+          }
+          100% {
+            opacity: 1;
+            transform: scaleY(1) scaleX(1);
+            filter: brightness(1);
+          }
+        }
+
+        @keyframes fadeInStagger {
+          from {
+            opacity: 0;
+            transform: translateY(5px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes scanLine {
+          0% {
+            opacity: 0.8;
+            transform: translateY(-100%);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(100%);
+          }
+        }
+
+        @keyframes tabContentFade {
+          0% {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
         .dither-pattern {
           background-image: 
             repeating-linear-gradient(0deg, transparent 0px, transparent 1px, white 1px, white 2px),
@@ -333,6 +846,30 @@ export default function Home() {
           background-size: 200% 200%, 180% 180%, 250% 250%, 220% 220%, 190% 190%, 240% 240%, 210% 210%, 230% 230%;
           background-position: 0% 0%, 40% 40%, 60% 60%, 20% 20%, 80% 80%, 30% 30%, 70% 70%, 50% 50%;
           opacity: 0.3;
+        }
+
+        /* Custom scrollbar styling */
+        .scrollbar-thin::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 2px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Firefox scrollbar */
+        .scrollbar-thin {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
         }
       `}</style>
     </main>
