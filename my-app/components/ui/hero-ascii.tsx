@@ -154,18 +154,9 @@ export default function Home() {
       {/* Mobile stars background */}
       <div className="absolute inset-0 w-full h-full lg:hidden stars-bg"></div>
 
-      {/* Dither effect above header */}
-      {/* <div className="absolute top-0 left-0 right-0 h-2 lg:h-3 dither-pattern opacity-30 z-20"></div> */}
-
-      {/* Top Header */}
-      <div className="absolute left-0 right-0 z-20 border-b border-white/20 top-2 lg:top-3">
-        <div className="container mx-auto px-4 lg:px-8 py-3 lg:py-4">
-        </div>
-      </div>
-
       {/* Vertical Carousel - Center Top - Toggleable */}
       <div 
-        className="absolute top-20 lg:top-24 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
+        className="absolute top-12 lg:top-16 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
         style={{ width: '320px' }}
       >
         <div
@@ -178,36 +169,48 @@ export default function Home() {
           <Carousel.Root
             defaultPage={0}
             slideCount={4}
-            orientation="vertical"
-            className="max-h-96 w-80 mx-auto"
+            className="w-80 mx-auto"
           >
-            <div className="flex gap-4">
-              <Carousel.Control className="flex flex-col justify-center gap-2">
-                <Carousel.PrevTrigger className="px-2 py-3 bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-lg transition-all duration-200 text-white font-mono">
-                  ↑
-                </Carousel.PrevTrigger>
-                <Carousel.NextTrigger className="px-2 py-3 bg-white/10 hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-lg transition-all duration-200 text-white font-mono">
-                  ↓
-                </Carousel.NextTrigger>
-              </Carousel.Control>
-              <Carousel.ItemGroup className="overflow-hidden rounded-lg h-80 flex-1 border border-white/20">
-                {Array.from({ length: 4 }, (_, i) => (
-                  <Carousel.Item key={i} index={i}>
-                    <img
-                      src={`https://picsum.photos/seed/${i + 20}/300/400`}
-                      alt={`Slide ${i + 1}`}
-                      className="w-full h-80 object-cover"
-                    />
-                  </Carousel.Item>
-                ))}
-              </Carousel.ItemGroup>
-              <Carousel.IndicatorGroup className="flex flex-col justify-center items-center gap-2">
+            <div className="flex flex-col gap-3">
+              {/* Display image with arrows on sides */}
+              <div className="flex items-center gap-2">
+                <Carousel.Control className="flex items-center gap-2">
+                  <Carousel.PrevTrigger className="px-2 py-2 hover:opacity-70 transition-opacity text-white font-mono">
+                    ←
+                  </Carousel.PrevTrigger>
+                </Carousel.Control>
+                <Carousel.ItemGroup className="overflow-hidden rounded-lg h-80 flex-1 border border-white/20">
+                  {Array.from({ length: 4 }, (_, i) => (
+                    <Carousel.Item key={i} index={i}>
+                      <img
+                        src={`https://picsum.photos/seed/${i + 20}/300/400`}
+                        alt={`Slide ${i + 1}`}
+                        className="w-full h-80 object-cover"
+                      />
+                    </Carousel.Item>
+                  ))}
+                </Carousel.ItemGroup>
+                <Carousel.Control className="flex items-center gap-2">
+                  <Carousel.NextTrigger className="px-2 py-2 hover:opacity-70 transition-opacity text-white font-mono">
+                    →
+                  </Carousel.NextTrigger>
+                </Carousel.Control>
+              </div>
+              
+              {/* Thumbnails at bottom */}
+              <Carousel.IndicatorGroup className="flex justify-center items-center gap-1">
                 {Array.from({ length: 4 }, (_, i) => (
                   <Carousel.Indicator
                     key={i}
                     index={i}
-                    className="w-2 h-8 rounded-full bg-white/30 data-[current]:bg-white transition-colors cursor-pointer hover:bg-white/50"
-                  />
+                    className="w-6 h-8 rounded overflow-hidden opacity-50 data-[current]:opacity-100 data-[current]:ring-1 data-[current]:ring-white transition-all cursor-pointer hover:opacity-75"
+                  >
+                    <img
+                      src={`https://picsum.photos/seed/${i + 20}/300/400`}
+                      alt={`Thumbnail ${i + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </Carousel.Indicator>
                 ))}
               </Carousel.IndicatorGroup>
             </div>
@@ -217,7 +220,7 @@ export default function Home() {
 
       {/* Project List - Center Top - Toggleable */}
       <div 
-        className="absolute top-20 lg:top-24 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
+        className="absolute top-12 lg:top-16 left-1/2 -translate-x-1/2 z-30 overflow-hidden"
         style={{ width: '280px', maxWidth: '85vw' }}
       >
         <div
@@ -257,8 +260,8 @@ export default function Home() {
       <div className="absolute left-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-l-2 border-white/30 z-20" style={{ bottom: '5vh' }}></div>
       <div className="absolute right-0 w-8 h-8 lg:w-12 lg:h-12 border-b-2 border-r-2 border-white/30 z-20" style={{ bottom: '5vh' }}></div>
 
-      {/* Name and Info Section - Right under header */}
-      <div className="absolute top-0 left-0 right-0 z-20 pt-16 lg:pt-20">
+      {/* Name and Info Section */}
+      <div className="absolute top-0 left-0 right-0 z-20 pt-8 lg:pt-12">
         <div className="pl-10 lg:pl-18 pt-2">
           <div className="mb-4 lg:mb-5">
             <div className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-4 mb-2">
@@ -440,9 +443,9 @@ export default function Home() {
       </div>
 
       {/* Content Section - Experience on the right */}
-      <div className="relative z-10 flex min-h-screen items-center justify-end pt-16 lg:pt-0" style={{ marginTop: '5vh' }}>
+      <div className="relative z-10 flex min-h-screen items-center justify-end pt-16 lg:pt-0" style={{ marginTop: '0', paddingRight: '80px' }}>
         {/* Right side - Job Experience Section */}
-        <div className="hidden lg:block max-w-md relative pr-18">
+        <div className="hidden lg:block max-w-md relative">
           {/* Top decorative line */}
           <div className="flex items-center gap-2 mb-3 opacity-60">
             <div className="flex-1 h-px bg-white"></div>
@@ -470,8 +473,8 @@ export default function Home() {
           </div>
 
           {/* Job Experience Items - Clean Timeline Style */}
-          <div className="max-h-[450px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-            <div className="space-y-6">
+          <div className="max-h-[450px] overflow-y-scroll scrollbar-thin">
+            <div className="space-y-6 pr-2">
               {/* Job 1 */}
               <div className="relative pr-4 border-r-2 border-white/40 hover:border-white/70 transition-colors duration-300">
                 <div className="absolute -right-[5px] top-1 w-2 h-2 bg-white rounded-full"></div>
@@ -848,28 +851,34 @@ export default function Home() {
           opacity: 0.3;
         }
 
-        /* Custom scrollbar styling */
+        /* Custom scrollbar styling - permanently visible */
         .scrollbar-thin::-webkit-scrollbar {
           width: 4px;
         }
         
         .scrollbar-thin::-webkit-scrollbar-track {
-          background: transparent;
+          background: rgba(255, 255, 255, 0.15);
+          border-radius: 2px;
         }
         
         .scrollbar-thin::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.2);
+          background: rgba(255, 255, 255, 0.5);
           border-radius: 2px;
         }
         
         .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.7);
         }
         
         /* Firefox scrollbar */
         .scrollbar-thin {
           scrollbar-width: thin;
-          scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+          scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Ensure scroll container captures all scroll events */
+        .scrollbar-thin {
+          overscroll-behavior: contain;
         }
       `}</style>
     </main>
